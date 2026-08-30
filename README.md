@@ -10,7 +10,7 @@ Este proyecto implementa la arquitectura solicitada para el taller individual 1:
   4. MongoDB: `video_size` + `ssim`
 - Transformaciones mediante KNIME.
 - Data Warehouse relacional en PostgreSQL.
-- Modelo estrella con 6 dimensiones y 1 tabla de hechos.
+- Modelo estrella con 5 dimensiones y 1 tabla de hechos.
 
 ## 1. Levantar contenedores
 
