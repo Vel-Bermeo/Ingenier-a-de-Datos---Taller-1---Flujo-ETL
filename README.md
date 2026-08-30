@@ -113,5 +113,5 @@ Get-Content .\scripts\validate_dw.sql | docker exec -i taller1_postgres_dw psql 
 
 - workflow exportado de KNIME
 - scripts y/o datos de origen
-- informe ejecutivo PDF
+- Informe ejecutivo PDF
 
