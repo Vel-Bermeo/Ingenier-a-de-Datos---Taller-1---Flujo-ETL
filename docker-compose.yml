@@ -1,0 +1,68 @@
+services:
+  mysql_source:
+    image: mysql:8.0
+    container_name: taller1_mysql_source
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: miclave
+      MYSQL_DATABASE: puffer_source
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_source_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pmiclave"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  postgres_source:
+    image: postgres:16
+    container_name: taller1_postgres_source
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: miuser
+      POSTGRES_PASSWORD: miclave
+      POSTGRES_DB: puffer_source
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_source_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U miuser -d puffer_source"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  mongodb_source:
+    image: mongo:7
+    container_name: taller1_mongodb_source
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_source_data:/data/db
+
+  postgres_dw:
+    image: postgres:16
+    container_name: taller1_postgres_dw
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dwuser
+      POSTGRES_PASSWORD: dwclave
+      POSTGRES_DB: puffer_dw
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_dw_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dwuser -d puffer_dw"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mysql_source_data:
+  postgres_source_data:
+  mongodb_source_data:
+  postgres_dw_data:
